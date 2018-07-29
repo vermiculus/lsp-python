@@ -12,13 +12,20 @@
 (require 'lsp-mode)
 (require 'lsp-common)
 
-(lsp-define-stdio-client lsp-python "python"
-			 (lsp-make-traverser #'(lambda (dir)
-						 (directory-files
-						  dir
-						  nil
-              "setup.py\\|Pipfile\\|setup.cfg\\|tox.ini")))
-			 '("pyls"))
+(lsp-define-stdio-client
+ lsp-python
+ "python"
+ (lsp-make-traverser
+  #'(lambda (dir)
+      (directory-files
+       dir
+       nil
+       (regexp-opt
+        "setup.py"
+        "Pipfile"
+        "setup.cfg"
+        "tox.ini"))))
+ '("pyls"))
 
 (provide 'lsp-python)
 ;;; lsp-python.el ends here
